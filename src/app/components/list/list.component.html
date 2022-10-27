@@ -1,0 +1,8 @@
+<p>list works!</p>
+
+<ul>
+    <ng-template ngFor let-item [ngForOf] = "categories">
+        <li *ngIf="item.length > 5">{{item}}</li>
+    </ng-template>
+   
+</ul>
