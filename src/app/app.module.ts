@@ -18,4 +18,4 @@ import { CalculatorComponent } from './components/calculator/calculator.componen
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { }    
