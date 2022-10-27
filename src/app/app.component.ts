@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'telco-frontend';
+
+
+  sumofNums(a:number, b:number) : number{
+    return a + b;
+  }
+
+  btnClick(){
+    alert("Butona tıklandı")
+  }
 }
