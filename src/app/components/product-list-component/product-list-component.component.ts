@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-product-list-component',
@@ -7,12 +8,46 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductListComponentComponent implements OnInit {
 
+  myForm: FormGroup;
+  myNames: string[] = [];
+  name:string = "";
+  /*
+  
   productList: string[] = [];
   productName: string = "";
-  constructor() { }
 
-  ngOnInit(): void {
-    this.getProducts;
+  */
+  constructor(private fb: FormBuilder) {
+    this.myForm = this.fb.group({
+      name: ''
+    });
+  }
+
+   ngOnInit(): void {
+    this.getNames();
+   }
+
+  
+   addNames(name:string){
+    this.myNames.push(name)
+   }
+
+   getNames(){
+    return this.myNames;
+   }
+
+   deleteName(name:string){
+    this.myNames = this.myNames.filter(p => p !== name)
+   }
+
+
+  onSubmit(form: FormGroup) {
+    this.addNames(form.value.name)
+  }
+
+
+ /*  this.getProducts;
+
   }
 
   addProduct(productName:string){
@@ -24,5 +59,7 @@ export class ProductListComponentComponent implements OnInit {
   getProducts(){
     return this.productList;
   }
+
+  */
 
 }
