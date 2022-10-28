@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductListComponentComponent implements OnInit {
 
-
   productList: string[] = [];
   productName: string = "";
   constructor() { }
