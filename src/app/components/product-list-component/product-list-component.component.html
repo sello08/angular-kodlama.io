@@ -2,31 +2,47 @@
 <!-- ngFor -->
 <!-- ngIf -->
 <ng-container *ngIf="language == 'tr'; else enMessage">
-  <div>Merhaba</div>
+  <h1 style="color:red ;">Merhaba</h1>
 </ng-container>
 
 <ng-template #enMessage>
-  <div>Hello</div>
+  <h1 style="color:red ;">Hello</h1>
 </ng-template>
 
-<!--  Kategori ismi 3 haneden kısa ise yazılmasın! -->
+<!-- Show just some part base on  Category length  -->
 <ul *ngIf="categories">
-  <ng-template ngFor let-item [ngForOf]="categories">
-    <li *ngIf="item.name.length > 3">{{ item.id }} {{ item.name }}</li>
-  </ng-template>
+  <div *ngFor="let item of categories">
+    <ng-container *ngIf="item.description.length > 120; else elseDescription">
+    <li> <button (click)="changeToUpdate(item)">Düzenle</button>{{ item.id }} {{ item.name| uppercase  }}_______{{item.description.substring(0,120) + '...'}}</li>
+    </ng-container>
+    <ng-template #elseDescription>
+      <li> <button (click)="changeToUpdate(item)">Düzenle</button>{{ item.id }} {{ item.name| uppercase  }}_______{{item.description}}</li>
+
+    </ng-template>
+  </div>
 </ul>
 
 <!-- Reactive Form -->
-<h2>Form - Add</h2>
+<h2>{{header}}</h2>
 <form [formGroup]="categoryAddForm" (submit)="add()">
-  <p>{{ error }}</p>
+ <p>{{error}}</p>
   <input formControlName="name" type="text" placeholder="Enter name" />
   <input
     formControlName="description"
     type="text"
     placeholder="Enter description"
   />
-  <button type="submit">submit</button>
+ 
+ <!-- Arrange button name changes via UPDATING is in progress or not -->
+ 
+  <ng-container *ngIf="isUpdating == true; else elseButton">
+    <button type="button" (click)="updateCategory()">Update</button>
+  </ng-container>
+  
+  <ng-template #elseButton>
+    <button type="submit">Add</button>
+  </ng-template>
+ 
 </form>
 
 <!-- ngModel Form -->

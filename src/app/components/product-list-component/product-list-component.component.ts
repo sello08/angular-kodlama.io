@@ -1,4 +1,6 @@
+import { Category } from './../../models/category';
 import { Component, OnInit } from '@angular/core';
+import { CategoriesService } from './../../services/categories.service';
 import {
   FormBuilder,
   FormControl,
@@ -6,8 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { CategoriesService } from './../../services/categories.service';
-import { Category } from 'src/app/models/category';
+
 
 
 
@@ -17,29 +18,67 @@ import { Category } from 'src/app/models/category';
   styleUrls: ['./product-list-component.component.css']
 })
 export class ProductListComponentComponent implements OnInit {
-  // component içerisinde yer alan properties bizim için state oluyor.
-  // ?: null olabilir demek.
-  // !: null olmayacak, bu property'i kullanmadan önce atama işlemini gerçekleştiriceğiz söz vermiş oluyoruz.
-  categories!: Category[];
+  
+  categories : Category[] = []
+
+  newCategories : Category[] = [];
+
+  selectedCategory !: Category;
+
+  header : any = "Form - Add";
+
   language: string = 'en';
 
-  categoryAddForm!: FormGroup;
+  categoryAddForm !: FormGroup;
 
-  categoryIdToDelete: number = 0; // state
+  categoryIdToDelete !: number ; // state
+  
+  categoryIdToUpdate !: number;
 
   error: string = '';
 
-  //Angular IoC (Inversion of Control) Container kullanır.
-  //Dependency Injection (Bağımlılık Enjeksiyonu)
-  constructor(
-    private categoriesService: CategoriesService,
-    private formBuilder: FormBuilder
-  ) {}
+  isUpdating : boolean = false;
+
+
+  
+  constructor( private categoriesService: CategoriesService, private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.getCategories();
     this.createCategoryAddForm();
   }
+  changeToUpdate(item: Category){
+    this.isUpdating = true;
+    this.selectedCategory = {...item};
+    
+    this.categoryAddForm = this.formBuilder.group({
+      name: [item.name , Validators.required],
+      description: [item.description, [Validators.required, Validators.minLength(10)]],
+    });
+    this.categories.forEach((p) => {
+      if(p.name === this.categoryAddForm.value.name)
+      {
+        this.categoryIdToUpdate = p.id
+      }
+    })
+
+    this.header = "Form-Update " + this.categoryIdToUpdate
+
+  }
+  updateCategory( ){
+  this.isUpdating = false;
+  this.header = `Form - Add` 
+  this.categoriesService.update( this.selectedCategory)
+ 
+
+  this.categoryAddForm = this.formBuilder.group({
+    name: ['' , Validators.required],
+    description: ['', [Validators.required, Validators.minLength(10)]],
+  });
+  
+  
+  }
+  
 
   createCategoryAddForm() {
     this.categoryAddForm = this.formBuilder.group({
@@ -49,9 +88,9 @@ export class ProductListComponentComponent implements OnInit {
   }
 
   getCategories(): void {
-    // Object tipi henüz belli olmayan referans tip diyebiliriz. Referans tiplerin en temel sınıfı diyebiliriz.
+
     this.categoriesService.getCategories().subscribe((response) => {
-      // Observer Design Pattern
+     
       this.categories = response;
     });
   }
@@ -61,6 +100,9 @@ export class ProductListComponentComponent implements OnInit {
   // }
 
   add(): void {
+    this.isUpdating = false
+
+
     if (this.categoryAddForm.invalid) {
       this.error = 'Form is invalid';
       return;
@@ -77,9 +119,9 @@ export class ProductListComponentComponent implements OnInit {
     // };
 
     // spread operator ... (ES6)
-    const category: Category = {
-      ...this.categoryAddForm.value,
-    };
+   
+    const category: Category = { ...this.categoryAddForm.value }
+
     this.categoriesService.add(category).subscribe({
       next: (response) => {
         console.info(`Category(${response}) has added.`);
@@ -95,6 +137,9 @@ export class ProductListComponentComponent implements OnInit {
         this.getCategories();
       },
     });
+
+   
+    
   }
 
   delete() {
