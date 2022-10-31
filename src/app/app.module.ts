@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { CalculatorComponent } from './components/calculator/calculator.component';
 import { ListComponent } from './components/list/list.component';
 import { ProductListComponentComponent } from './components/product-list-component/product-list-component.component';
+import {HttpClientModule} from '@angular/common/http'
+
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { ProductListComponentComponent } from './components/product-list-compone
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   exports: [],
   providers: [],

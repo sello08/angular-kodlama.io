@@ -1,5 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+
+import { CategoriesService } from './../../services/categories.service';
+import { Category } from 'src/app/models/category';
+
+
 
 @Component({
   selector: 'app-product-list-component',
@@ -7,59 +17,90 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./product-list-component.component.css']
 })
 export class ProductListComponentComponent implements OnInit {
+  // component içerisinde yer alan properties bizim için state oluyor.
+  // ?: null olabilir demek.
+  // !: null olmayacak, bu property'i kullanmadan önce atama işlemini gerçekleştiriceğiz söz vermiş oluyoruz.
+  categories!: Category[];
+  language: string = 'en';
 
-  myForm: FormGroup;
-  myNames: string[] = [];
-  name:string = "";
-  /*
-  
-  productList: string[] = [];
-  productName: string = "";
+  categoryAddForm!: FormGroup;
 
-  */
-  constructor(private fb: FormBuilder) {
-    this.myForm = this.fb.group({
-      name: ''
+  categoryIdToDelete: number = 0; // state
+
+  error: string = '';
+
+  //Angular IoC (Inversion of Control) Container kullanır.
+  //Dependency Injection (Bağımlılık Enjeksiyonu)
+  constructor(
+    private categoriesService: CategoriesService,
+    private formBuilder: FormBuilder
+  ) {}
+
+  ngOnInit(): void {
+    this.getCategories();
+    this.createCategoryAddForm();
+  }
+
+  createCategoryAddForm() {
+    this.categoryAddForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      description: ['', [Validators.required, Validators.minLength(10)]],
     });
   }
 
-   ngOnInit(): void {
-    this.getNames();
-   }
-
-  
-   addNames(name:string){
-    this.myNames.push(name)
-   }
-
-   getNames(){
-    return this.myNames;
-   }
-
-   deleteName(name:string){
-    this.myNames = this.myNames.filter(p => p !== name)
-   }
-
-
-  onSubmit(form: FormGroup) {
-    this.addNames(form.value.name)
+  getCategories(): void {
+    // Object tipi henüz belli olmayan referans tip diyebiliriz. Referans tiplerin en temel sınıfı diyebiliriz.
+    this.categoriesService.getCategories().subscribe((response) => {
+      // Observer Design Pattern
+      this.categories = response;
+    });
   }
 
+  // changecategoryIdToDelete(event: any) {
+  //   this.categoryIdToDelete = event.target.value;
+  // }
 
- /*  this.getProducts;
+  add(): void {
+    if (this.categoryAddForm.invalid) {
+      this.error = 'Form is invalid';
+      return;
+    }
+    if (this.error) this.error = '';
 
+    // const {name, description} = this.categoryAddForm.value;
+    // // this.categoryAddForm.value
+    // const category: Category = {
+    //   id: 0,
+    //   // name: name,
+    //   name,
+    //   description,
+    // };
+
+    // spread operator ... (ES6)
+    const category: Category = {
+      ...this.categoryAddForm.value,
+    };
+    this.categoriesService.add(category).subscribe({
+      next: (response) => {
+        console.info(`Category(${response}) has added.`);
+      },
+      error: (err) => {
+        console.log(err);
+
+        this.error = err.statusText;
+      },
+      complete: () => {
+        if (this.error) this.error = '';
+        this.categoryAddForm.reset();
+        this.getCategories();
+      },
+    });
   }
 
-  addProduct(productName:string){
-    this.productList.push(this.productName)
+  delete() {
+    this.categoriesService.delete(this.categoryIdToDelete).subscribe(() => {
+      this.categoryIdToDelete = 0;
+      this.getCategories();
+    });
   }
-  deleteProduct(productName:string){
-    this.productList = this.productList.filter(element => element !== productName)
-  }
-  getProducts(){
-    return this.productList;
-  }
-
-  */
-
 }
