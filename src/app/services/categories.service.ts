@@ -24,7 +24,7 @@ export class CategoriesService {
     return this.httpClient.post<void>('http://localhost:3000/categories', category)
   }
 
-  update(category: Category): Observable<Category> {
-    return this.httpClient.put<Category>( `http://localhost:3000/categories/${category.id}`,  category );
+  update(id: number,category: Category): Observable<Category> {
+    return this.httpClient.put<Category>( 'http://localhost:3000/categories/' + id,  category );
   }
 }

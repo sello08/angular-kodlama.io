@@ -49,7 +49,6 @@ export class ProductListComponentComponent implements OnInit {
   }
   changeToUpdate(item: Category){
     this.isUpdating = true;
-    this.selectedCategory = {...item};
     
     this.categoryAddForm = this.formBuilder.group({
       name: [item.name , Validators.required],
@@ -65,10 +64,28 @@ export class ProductListComponentComponent implements OnInit {
     this.header = "Form-Update " + this.categoryIdToUpdate
 
   }
+  
   updateCategory( ){
   this.isUpdating = false;
   this.header = `Form - Add` 
-  this.categoriesService.update( this.selectedCategory)
+  this.selectedCategory = {...this.categoryAddForm.value}
+
+  this.categoriesService.update( this.categoryIdToUpdate ,this.selectedCategory).subscribe({
+    next: (response) => {
+      console.log(`Category${response} has updated`);
+    },
+    error: (err) => {
+      console.log(err);
+
+      this.error = err.statusText;
+    },
+    complete: () => {
+      if (this.error) this.error = '';
+      this.categoryAddForm.reset();
+      this.getCategories();
+    },
+    
+  })
  
 
   this.categoryAddForm = this.formBuilder.group({
