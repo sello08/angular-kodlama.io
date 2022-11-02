@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingService } from './services/loading.service';
+
 
 @Component({
   selector: 'app-root',
@@ -8,12 +8,12 @@ import { LoadingService } from './services/loading.service';
 })
 export class AppComponent implements OnInit {
   title = 'telco-frontend12';
-  isLoading: boolean = false;
+  
   today: Date = new Date();
 
-  constructor(private loadingService: LoadingService) {}
+  constructor() {}
   ngOnInit(): void {
-    this.subscribeToLoading();
+    
   }
 
   sumOfNumbers(a: number, b: number) {
@@ -26,17 +26,5 @@ export class AppComponent implements OnInit {
     alert('Butona tıklandı');
   }
 
-  subscribeToLoading() {
-    this.loadingService.isLoadingSubject.subscribe((isLoading) => {
-      this.isLoading = isLoading;
-      console.log(`Is Loading değeri: ${isLoading}`);
-    });
-  }
-
-  startLoading() {
-    this.loadingService.startLoading();
-  }
-  stopLoading() {
-    this.loadingService.stopLoading();
-  }
+  
 }

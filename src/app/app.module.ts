@@ -10,6 +10,9 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { CreateFakeArrayPipe } from './pipes/create-fake-array.pipe';
 import { SplitPipe } from './pipes/split.pipe'
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { ServicesComponentsComponent } from './components/services-components/services-components.component';
+import { HeaderComponent } from './components/header/header.component';
 
 
 @NgModule({
@@ -19,7 +22,10 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
     ListComponent,
     ProductListComponentComponent,
     CreateFakeArrayPipe,
-    SplitPipe
+    SplitPipe,
+    SpinnerComponent,
+    ServicesComponentsComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

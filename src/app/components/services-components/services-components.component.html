@@ -1,0 +1,30 @@
+<div class="add-btn">
+    <button (click)="add()">Add a new service</button>
+</div>
+<div class="main-services">
+    
+    <table>
+
+    </table>
+    <ul>
+        <tr *ngFor="let service of services">
+            <th class="service-index">{{ service.id }} </th>
+            <th>{{ service.name  }} </th>
+            <th class="operation-btns"><button (click)="update(service)">Update</button></th>
+            <th class="operation-btns" *ngIf="service.id != null"><button (click)="deleteService(service.id)">Delete</button></th>
+        </tr>
+    </ul>
+   
+</div>
+<div class="add-service" *ngIf="service != null">
+    <textarea name="" id="" cols="30" rows="23" [(ngModel)]="service.name"></textarea>
+    <button (click)="service.id ? updateService() : addService(service)">{{ service.id ? "Update" : "Add"}}</button>
+</div>
+
+
+   
+
+    
+     
+
+

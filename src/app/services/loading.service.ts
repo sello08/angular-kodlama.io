@@ -5,13 +5,16 @@ import { BehaviorSubject, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class LoadingService {
+
   isLoadingSubject: Subject<boolean> = new Subject<boolean>();
+
   pendingRequestCount: number = 0;
+
   constructor() {}
 
   startLoading() {
     this.pendingRequestCount++;
-    this.isLoadingSubject.next(this.pendingRequestCount > 0);
+    this.isLoadingSubject.next(this.pendingRequestCount > 0);  // observable türündeki değişkenlere değer ataması next methoduyşa yapılabilir.
   }
   stopLoading() {
     this.pendingRequestCount--;

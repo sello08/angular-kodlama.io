@@ -1,0 +1,65 @@
+.main-header{
+    display: inline-flex;
+    background-color: rgba(23, 106, 30, 0.599);
+    width: 1200px;
+    height: 100px;
+    margin-left: 8%;
+    margin-top: 5%;
+    color: white; 
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    padding-left: 50px;
+}
+
+.main-title{
+    margin-top: 30px;
+    font-weight: bolder;
+    font-size: 35px;
+    cursor: pointer;
+    color: black;
+}
+
+.main-button1{
+    margin-top: 25px;
+    margin-left: 80px;
+    padding: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.main-button2{
+    margin-top: 25px;
+    padding: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.main-button3{
+    margin-top: 25px;
+    padding: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.main-button4{
+    padding: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.searchBar{
+    height: 30px;
+    width: 350px;
+    margin-left: 50px;
+    margin-top: 39px;
+    background-color: rgba(0, 0, 0, 0.345);
+    border: none;
+    border-radius: 15px;
+    color: white;
+}
+.searchBar::placeholder{
+    color: rgba(255, 255, 255, 0.536);
+    padding-left: 30px;
+}
+span:hover{
+    background-color: white;
+    color: black;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}

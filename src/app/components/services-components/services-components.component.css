@@ -1,0 +1,51 @@
+.main-services{
+    margin-left: 100px;
+    margin-top: -10px;
+    
+    
+}
+.services-list{
+    cursor: pointer;
+}
+.services-list:hover{
+   color:  rgba(23, 106, 30, 0.599);
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  width: 600px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.operation-btns, .service-index{
+    border: 1px solid #dddddd;
+    text-align: center;
+     padding: 8px;
+     width: 80px;
+}
+.add-btn{
+  margin-left: 920px;
+  margin-top: 100px;
+}
+.add-service{
+  margin-left: 1100px;
+  margin-top: -400px;
+}
+.add-service input{
+  width: 200px;
+  height: 370px;
+}
+.add-service input::placeholder{
+ padding-top: 10px;
+}
+
