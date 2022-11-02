@@ -1,12 +1,7 @@
-import { Category } from './../../models/category';
 import { Component, OnInit } from '@angular/core';
+import { Category } from './../../models/category';
 import { CategoriesService } from './../../services/categories.service';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 
@@ -119,12 +114,11 @@ export class ProductListComponentComponent implements OnInit {
   add(): void {
     this.isUpdating = false
 
-
     if (this.categoryAddForm.invalid) {
       this.error = 'Form is invalid';
       return;
     }
-    if (this.error) this.error = '';
+    //if (this.error) this.error = '';
 
     // const {name, description} = this.categoryAddForm.value;
     // // this.categoryAddForm.value

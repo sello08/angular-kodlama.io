@@ -1,13 +1,25 @@
-<!-- <h3>Merhaba Angular</h3>
+<h3>{{ "Merhaba Angular" }}</h3>
 
-<h3>{{title}}</h3>
-<h3>{{sumofNums(5,6)}}</h3>
+<div class="spinner-container" *ngIf="isLoading">
+  <div class="overlay show"></div>
+  <div class="spinner show">
+    <div class="loader"></div>
+    <p>Loading...</p>
+  </div>
+</div>
 
+<!-- 1-10 arası sayıları listeye yazdır.. -->
+<ul>
+  <li *ngFor="let i of 10 | createFakeArray">{{ i }}</li>
+</ul>
+
+<!-- <h3>{{ title }}</h3>
+<h3>{{ sumOfNumbers(6, 5) }}</h3>
 <button (click)="btnClick()">Tıkla</button>
-
-<app-calculator></app-calculator>
-<app-list></app-list>  -->  
+<my-calculator></my-calculator> -->
 
 <app-product-list-component></app-product-list-component>
+
+
 
 
